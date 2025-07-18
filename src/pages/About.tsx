@@ -1,35 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Target, Users, Globe } from 'lucide-react';
+import TeamSection from "./TeamSection"; // adjust path as needed
+
 
 const About = () => {
-  const team = [
-    {
-      name: "Dr. Sophea Chan",
-      role: "Lab Director",
-      image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400",
-      bio: "Leading climate researcher with 15 years of experience in environmental monitoring and sustainable development in Southeast Asia."
-    },
-    {
-      name: "Dr. Ratha Pich",
-      role: "Senior Researcher",
-      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400",
-      bio: "Expert in water resource management and hydrological modeling with extensive fieldwork experience in the Mekong basin."
-    },
-    {
-      name: "Ms. Srey Leak",
-      role: "Research Coordinator",
-      image: "https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=400",
-      bio: "Coordinates research activities and manages community outreach programs for environmental awareness."
-    },
-    {
-      name: "Dr. Virak Nhem",
-      role: "Data Scientist",
-      image: "https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=400",
-      bio: "Specializes in GIS mapping, remote sensing, and developing analytical tools for environmental data processing."
-    }
-  ];
-
   const milestones = [
     { year: "2018", event: "KHEOBS Lab established" },
     { year: "2019", event: "First climate monitoring station deployed" },
@@ -104,45 +79,8 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Team</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Meet the dedicated researchers and professionals driving our mission forward.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
-              >
-                <div className="h-64 bg-gray-200 overflow-hidden">
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                  <p className="text-blue-800 font-semibold mb-3">{member.role}</p>
-                  <p className="text-gray-600 text-sm leading-relaxed">{member.bio}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+      <section>
+        <TeamSection />
       </section>
 
       {/* Timeline */}

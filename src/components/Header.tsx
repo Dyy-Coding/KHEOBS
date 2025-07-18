@@ -7,6 +7,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [language, setLanguage] = useState<'en' | 'km'>('en');
   const location = useLocation();
 
   useEffect(() => {
@@ -39,12 +40,16 @@ const Header = () => {
       dropdown: [
         { name: 'Projects', href: '/research#current' },
         { name: 'Publications', href: '/publications' },
-      ]
+      ],
     },
     { name: 'Tools', href: '/tools' },
     { name: 'News', href: '/news' },
-    { name: 'Contact', href: '/contact' }
+    { name: 'Contact', href: '/contact' },
   ];
+
+  const toggleLanguage = () => {
+    setLanguage((prev) => (prev === 'en' ? 'km' : 'en'));
+  };
 
   return (
     <motion.header
@@ -56,6 +61,7 @@ const Header = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+          {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-800 to-red-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">K</span>
@@ -67,7 +73,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-8 items-center">
             {navigation.map((item) => (
               <div key={item.name} className="relative dropdown-parent">
                 {item.dropdown ? (
@@ -121,15 +127,37 @@ const Header = () => {
                 )}
               </div>
             ))}
+
+            {/* Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              className="px-3 py-1 text-sm font-medium bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition-colors"
+            >
+              {language === 'en' ? 'ខ្មែរ' : 'EN'}
+            </button>
           </nav>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-800"
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Menu & Language Toggle */}
+          <div className="flex items-center space-x-3 md:hidden">
+            <button
+              onClick={toggleLanguage}
+              className="px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition-colors"
+            >
+              {language === 'en' ? 'ខ្មែរ' : 'EN'}
+            </button>
+
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 rounded-md text-gray-700 hover:text-orange-600 hover:bg-orange-50"
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? (
+                <X className="w-5 sm:w-6 h-5 sm:h-6" />
+              ) : (
+                <Menu className="w-5 sm:w-6 h-5 sm:h-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
