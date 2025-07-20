@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X, ChevronDown, Mail, Phone } from 'lucide-react'; // added Mail, Phone icons if needed
 import { motion } from 'framer-motion';
 
 const Header = () => {
@@ -9,12 +9,12 @@ const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [language, setLanguage] = useState<'en' | 'km'>('en');
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -26,7 +26,6 @@ const Header = () => {
         setActiveDropdown(null);
       }
     };
-
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
@@ -44,11 +43,30 @@ const Header = () => {
     },
     { name: 'Tools', href: '/tools' },
     { name: 'News', href: '/news' },
-    { name: 'Contact', href: '/contact' },
+    // Contact removed from here, replaced with button below
   ];
 
   const toggleLanguage = () => {
     setLanguage((prev) => (prev === 'en' ? 'km' : 'en'));
+  };
+
+  // Scroll to Contact Section smoothly
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact-section');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Handle Contact click: if already on /about scroll, else navigate then scroll
+  const handleContactClick = () => {
+    if (location.pathname === '/about') {
+      scrollToContact();
+      setIsMenuOpen(false);
+    } else {
+      navigate('/about', { state: { scrollToContact: true } });
+      setIsMenuOpen(false);
+    }
   };
 
   return (
@@ -128,6 +146,15 @@ const Header = () => {
               </div>
             ))}
 
+            {/* Contact as uniquely styled Button */}
+            <button
+              onClick={handleContactClick}
+              className="inline-flex items-center px-4 py-2 rounded-md text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-colors whitespace-nowrap shadow-md"
+              type="button"
+            >
+              Contact
+            </button>
+
             {/* Language Toggle */}
             <button
               onClick={toggleLanguage}
@@ -183,6 +210,18 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
+
+              {/* Contact button in mobile nav with unique style */}
+              <button
+                onClick={() => {
+                  handleContactClick();
+                  setIsMenuOpen(false);
+                }}
+                className="w-full text-left px-4 py-2 rounded-md text-base font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-md"
+                type="button"
+              >
+                Contact
+              </button>
             </div>
           </motion.div>
         )}

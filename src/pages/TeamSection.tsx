@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Facebook, Linkedin, Mail, X } from 'lucide-react';
+import { Facebook, Linkedin, Mail, Twitter } from 'lucide-react';
 import teamData from './teamData';
 
 type ContactInfo = {
   facebook?: string;
   linkedin?: string;
   email?: string;
+  twitter?: string;
 };
 
 type TeamMember = {
@@ -16,71 +17,90 @@ type TeamMember = {
   image: string;
   bio: string;
   experience: string;
-  nationality: string;
   description: string;
   contacts?: ContactInfo;
 };
 
-type TeamData = {
-  [group: string]: TeamMember[];
-};
-
-const TeamSection: React.FC = () => {
+const TeamSection = () => {
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
-  return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Team</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Meet the dedicated researchers and professionals driving our mission forward.
-          </p>
-        </motion.div>
+  // teamData is already grouped by category, so keep it grouped on main page
+  const groups = Object.entries(teamData); // [ [groupName, members[]], ...]
 
-        {Object.entries(teamData as TeamData).map(([group, members]) => (
-          <div key={group} className="mb-12">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 border-b pb-2">{group}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {members.map((member, index) => (
+  return (
+    <section className="py-16 px-4 sm:px-8 lg:px-20 bg-white">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+          Meet Our Team
+        </h2>
+
+        {/* Render each group with heading and grid */}
+        {groups.map(([groupName, members]) => (
+          <div key={groupName} className="mb-16">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-8 border-b border-orange-500 inline-block pb-2">
+              {groupName}
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+              {members.map((member, idx) => (
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => setSelectedMember(member)}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
+                  key={idx}
+                  whileHover={{ scale: 1.03 }}
+                  className="bg-white shadow-xl rounded-2xl overflow-hidden cursor-pointer"
+                  onClick={() => setSelectedMember({ ...member, group: groupName })}
                 >
-                  <div className="aspect-square bg-gray-200 overflow-hidden">
+                  <div className="w-full aspect-square overflow-hidden">
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                    <p className="text-blue-800 font-semibold mb-3">{member.role}</p>
-                    <p className="text-gray-600 text-sm leading-relaxed">{member.bio}</p>
+                  <div className="p-5">
+                    <h4 className="text-xl font-semibold text-gray-900">{member.name}</h4>
+                    <p className="text-sm text-gray-600">{member.role}</p>
+                    <p className="text-sm text-orange-600">{groupName}</p>
                     <div className="flex gap-3 mt-4">
                       {member.contacts?.facebook && (
-                        <a href={member.contacts.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
+                        <a
+                          href={member.contacts.facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800"
+                          aria-label="Facebook"
+                        >
                           <Facebook size={18} />
                         </a>
                       )}
                       {member.contacts?.linkedin && (
-                        <a href={member.contacts.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
+                        <a
+                          href={member.contacts.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800"
+                          aria-label="LinkedIn"
+                        >
                           <Linkedin size={18} />
                         </a>
                       )}
                       {member.contacts?.email && (
-                        <a href={`mailto:${member.contacts.email}`} className="text-blue-600 hover:text-blue-800">
+                        <a
+                          href={`mailto:${member.contacts.email}`}
+                          className="text-blue-600 hover:text-blue-800"
+                          aria-label="Email"
+                        >
                           <Mail size={18} />
+                        </a>
+                      )}
+                      {member.contacts?.twitter && (
+                        <a
+                          href={member.contacts.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800"
+                          aria-label="Twitter"
+                        >
+                          <Twitter size={18} />
                         </a>
                       )}
                     </div>
@@ -93,36 +113,92 @@ const TeamSection: React.FC = () => {
 
         {/* Modal */}
         {selectedMember && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-lg shadow-xl max-w-xl w-full relative p-6">
-              <button onClick={() => setSelectedMember(null)} className="absolute top-3 right-3 text-gray-500 hover:text-gray-800">
-                <X size={20} />
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm p-4">
+            <div className="bg-white rounded-2xl shadow-lg w-[80vw] h-[80vh] max-w-none p-8 relative overflow-auto flex flex-col md:flex-row gap-8">
+              <button
+                onClick={() => setSelectedMember(null)}
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl font-bold"
+                aria-label="Close modal"
+              >
+                ✕
               </button>
-              <div className="flex flex-col md:flex-row gap-6">
-                <img src={selectedMember.image} alt={selectedMember.name} className="w-40 h-40 rounded-lg object-cover" />
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900">{selectedMember.name}</h3>
-                  <p className="text-blue-800 font-semibold">{selectedMember.role}</p>
-                  <p className="mt-2 text-gray-700 text-sm leading-relaxed">{selectedMember.description}</p>
-                  <p className="mt-2 text-gray-600 text-sm"><strong>Experience:</strong> {selectedMember.experience}</p>
-                  <p className="text-gray-600 text-sm"><strong>Nationality:</strong> {selectedMember.nationality}</p>
-                  <div className="flex gap-3 mt-4">
-                    {selectedMember.contacts?.facebook && (
-                      <a href={selectedMember.contacts.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
-                        <Facebook size={18} />
-                      </a>
-                    )}
-                    {selectedMember.contacts?.linkedin && (
-                      <a href={selectedMember.contacts.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
-                        <Linkedin size={18} />
-                      </a>
-                    )}
-                    {selectedMember.contacts?.email && (
-                      <a href={`mailto:${selectedMember.contacts.email}`} className="text-blue-600 hover:text-blue-800">
-                        <Mail size={18} />
-                      </a>
-                    )}
-                  </div>
+
+              {/* Larger image */}
+              <div className="flex-shrink-0 mx-auto md:mx-0 md:w-[180px] md:h-[180px] rounded-lg overflow-hidden shadow-lg">
+                <img
+                  src={selectedMember.image}
+                  alt={selectedMember.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Details */}
+              <div className="flex-1 flex flex-col">
+                <h3 className="text-4xl font-semibold">{selectedMember.name}</h3>
+                <p className="text-xl text-gray-700 mt-1">{selectedMember.role}</p>
+                <p className="text-orange-600 font-semibold mt-1">{selectedMember.group}</p>
+
+                <div className="mt-6 space-y-6 text-gray-700 flex-grow overflow-auto">
+                  <section>
+                    <h4 className="font-semibold text-2xl mb-2">Biography</h4>
+                    <p>{selectedMember.bio}</p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-2xl mb-2">Experience</h4>
+                    <p>{selectedMember.experience}</p>
+                  </section>
+
+                  <section>
+                    <h4 className="font-semibold text-2xl mb-2">Description</h4>
+                    <p>{selectedMember.description}</p>
+                  </section>
+                </div>
+
+                {/* Contacts */}
+                <div className="mt-6 flex gap-6">
+                  {selectedMember.contacts?.facebook && (
+                    <a
+                      href={selectedMember.contacts.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800"
+                      aria-label="Facebook"
+                    >
+                      <Facebook size={28} />
+                    </a>
+                  )}
+                  {selectedMember.contacts?.linkedin && (
+                    <a
+                      href={selectedMember.contacts.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin size={28} />
+                    </a>
+                  )}
+                  {selectedMember.contacts?.email && (
+                    <a
+                      href={`mailto:${selectedMember.contacts.email}`}
+                      className="text-blue-600 hover:text-blue-800"
+                      aria-label="Email"
+                    >
+                      <Mail size={28} />
+                    </a>
+                  )}
+                  {selectedMember.contacts?.twitter && (
+                    <a
+                      href={selectedMember.contacts.twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800"
+                      aria-label="Twitter"
+                    >
+                      <Twitter size={28} />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

@@ -9,7 +9,6 @@ import Research from './pages/Research';
 import Publications from './pages/Publications';
 import Tools from './pages/Tools';
 import News from './pages/News';
-import Contact from './pages/Contact';
 import Admin from './pages/Admin';
 
 function App() {
@@ -25,7 +24,6 @@ function App() {
             <Route path="/publications" element={<Publications />} />
             <Route path="/tools" element={<Tools />} />
             <Route path="/news" element={<News />} />
-            <Route path="/contact" element={<Contact />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
         </AnimatePresence>

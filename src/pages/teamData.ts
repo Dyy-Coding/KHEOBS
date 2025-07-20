@@ -2,6 +2,7 @@ export type ContactInfo = {
   facebook?: string;
   linkedin?: string;
   email?: string;
+  twitter?: string;  // renamed from x to twitter
 };
 
 export type TeamMember = {
@@ -34,6 +35,7 @@ const teamData: TeamData = {
         facebook: "https://facebook.com/sophea",
         linkedin: "https://linkedin.com/in/sophea",
         email: "sophea@example.com",
+        twitter: "https://twitter.com/sophea",
       },
     },
     {
@@ -49,6 +51,7 @@ const teamData: TeamData = {
         facebook: "https://facebook.com/rithy",
         linkedin: "https://linkedin.com/in/rithylim",
         email: "rithy@example.com",
+        twitter: "https://twitter.com/rithy",
       },
     },
     {
@@ -64,6 +67,7 @@ const teamData: TeamData = {
         facebook: "https://facebook.com/sreyleak",
         linkedin: "https://linkedin.com/in/sreyleakphan",
         email: "sreyleak@example.com",
+        twitter: "https://twitter.com/sreyleak",
       },
     },
   ],
@@ -81,6 +85,7 @@ const teamData: TeamData = {
         facebook: "https://facebook.com/chandara",
         linkedin: "https://linkedin.com/in/chandara",
         email: "dara@example.com",
+        twitter: "https://twitter.com/chandara",
       },
     },
     {
@@ -96,6 +101,7 @@ const teamData: TeamData = {
         facebook: "https://facebook.com/sokchea",
         linkedin: "https://linkedin.com/in/sokcheayem",
         email: "sokchea@example.com",
+        twitter: "https://twitter.com/sokchea",
       },
     },
     {
@@ -111,6 +117,7 @@ const teamData: TeamData = {
         facebook: "https://facebook.com/rinameas",
         linkedin: "https://linkedin.com/in/rinameas",
         email: "rina@example.com",
+        twitter: "https://twitter.com/rinameas",
       },
     },
   ],
@@ -128,6 +135,7 @@ const teamData: TeamData = {
         facebook: "https://facebook.com/michael",
         linkedin: "https://linkedin.com/in/michaeltan",
         email: "michael@example.com",
+        twitter: "https://twitter.com/michael",
       },
     },
     {
@@ -143,6 +151,7 @@ const teamData: TeamData = {
         facebook: "https://facebook.com/linachhouk",
         linkedin: "https://linkedin.com/in/linachhouk",
         email: "lina@example.com",
+        twitter: "https://twitter.com/linachhouk",
       },
     },
     {
@@ -158,6 +167,7 @@ const teamData: TeamData = {
         facebook: "https://facebook.com/johnweaver",
         linkedin: "https://linkedin.com/in/johnweaver",
         email: "weaver@example.com",
+        twitter: "https://twitter.com/johnweaver",
       },
     },
   ],

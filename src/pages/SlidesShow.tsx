@@ -54,12 +54,27 @@ const Slideshow: React.FC = () => {
   }, []);
 
   const paginate = (newIndex: number) => {
+    if (newIndex === currentIndex) return;
     const dir = newIndex > currentIndex ? 1 : -1;
     setCurrentIndex([newIndex, dir]);
   };
 
+  const prevSlide = () => {
+    const newIndex = (currentIndex - 1 + slideshowItems.length) % slideshowItems.length;
+    setCurrentIndex([newIndex, -1]);
+  };
+
+  const nextSlide = () => {
+    const newIndex = (currentIndex + 1) % slideshowItems.length;
+    setCurrentIndex([newIndex, 1]);
+  };
+
   return (
-    <div className="relative w-screen h-screen overflow-hidden z-10">
+    <div
+      className="relative mx-auto"
+      style={{ width: '80vw', height: '80vh' }}
+      aria-label="Image slideshow"
+    >
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
@@ -69,23 +84,46 @@ const Slideshow: React.FC = () => {
           animate="center"
           exit="exit"
           transition={{ duration: 0.8 }}
-          className="absolute inset-0"
+          className="absolute inset-0 rounded-lg overflow-hidden shadow-lg"
         >
           <img
             src={slideshowItems[currentIndex].image}
             alt={slideshowItems[currentIndex].title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-4">
-            <h3 className="text-white text-4xl md:text-5xl font-bold mb-4">
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-6 md:px-12">
+            <h3 className="text-white text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
               {slideshowItems[currentIndex].title}
             </h3>
-            <p className="text-white text-lg md:text-xl max-w-2xl">
+            <p className="text-white text-base md:text-lg max-w-3xl drop-shadow-md">
               {slideshowItems[currentIndex].description}
             </p>
           </div>
         </motion.div>
       </AnimatePresence>
+
+      {/* Left / Right Navigation Buttons */}
+      <button
+        aria-label="Previous Slide"
+        onClick={prevSlide}
+        className="absolute top-1/2 left-4 -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-60 text-white rounded-full p-3 shadow-lg transition"
+        style={{ backdropFilter: 'blur(4px)' }}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <button
+        aria-label="Next Slide"
+        onClick={nextSlide}
+        className="absolute top-1/2 right-4 -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-60 text-white rounded-full p-3 shadow-lg transition"
+        style={{ backdropFilter: 'blur(4px)' }}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
 
       {/* Navigation dots */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-4 z-10">
