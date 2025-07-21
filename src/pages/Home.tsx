@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ChevronRight, Users, BookOpen, MapPin, TrendingUp } from 'lucide-react';
 import Slideshow from "./SlidesShow";
 import LatestUpdate from "./LatestUpdate";
+import HeroSection from './HeroSection';
 
 type IconType = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 
@@ -115,76 +116,11 @@ const Home: React.FC = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-<section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-red-700 text-white min-h-screen flex items-center overflow-hidden">
-  {/* Background Image */}
-  <div
-    className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 blur-sm"
-    style={{
-      backgroundImage:
-        "url(https://i.pinimg.com/1200x/63/d9/31/63d9312343bc6d160e597b25c2abd43f.jpg)",
-    }}
-  ></div>
-
-  {/* Overlay Gradient */}
-  <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-blue-900/70 to-red-900/70"></div>
-
-  {/* Content */}
-  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, ease: "easeOut" }}
-      className="text-center"
-    >
-      <h1 className="text-4xl md:text-6xl font-black mb-6 drop-shadow-lg leading-tight">
-        <span className="block">Climate & Environment</span>
-        <span className="block text-red-400">Research Lab Cambodia</span>
-      </h1>
-      <p className="text-lg md:text-2xl mb-10 max-w-3xl mx-auto text-gray-200 drop-shadow">
-        Empowering Cambodia through sustainable research, technology, and environmental advocacy.
-      </p>
-
-      {/* CTA Buttons */}
-      <div className="flex flex-col sm:flex-row gap-6 justify-center">
-        <motion.a
-          href="/research"
-          className="bg-white text-blue-900 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-2xl transition-all inline-flex items-center justify-center"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Explore Research
-          <ChevronRight className="ml-2 w-5 h-5" />
-        </motion.a>
-        <motion.a
-          href="/about"
-          className="border-2 border-white text-white px-8 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-900 transition-all inline-flex items-center justify-center shadow-lg"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Learn More
-        </motion.a>
-      </div>
-    </motion.div>
-  </div>
+<section >
+     <HeroSection/>
 </section>
 
 
-      {/* Statistics Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="grid grid-cols-1 md:grid-cols-4 gap-10"
-          >
-            <AnimatedCounter value={stats.projects} label="Research Projects" icon={MapPin} />
-            <AnimatedCounter value={stats.publications} label="Publications" icon={BookOpen} />
-            <AnimatedCounter value={stats.team} label="Team Members" icon={Users} />
-            <AnimatedCounter value={stats.impact} label="Community Impact" icon={TrendingUp} />
-          </motion.div>
-        </div>
-      </section>
 
       {/* Featured Research */}
       <section className="py-20">
@@ -248,21 +184,32 @@ const Home: React.FC = () => {
           </motion.div>
         </div>
       </section>
+    <motion.section
+      className="sticky h-[150vh] w-screen flex items-center justify-center bg-black z-0 overflow-hidden"
+      style={{ top: '-50vh'}}
+      initial={{ scale: 1, filter: "brightness(0.8)" }}
+      animate={{ scale: 1.02, filter: "brightness(1)" }}
+      transition={{
+        duration: 10,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut",
+      }}
+    >
+      <div className="w-full h-full">
+        <img
+          src="https://www.researchgate.net/publication/323211523/figure/fig1/AS:631595753033737@1527595570502/Map-of-Cambodia-and-location-of-the-16-research-sites.png"
+          alt="Climate Change in Cambodia"
+          className="w-full h-full object-cover rounded-xl shadow-2xl"
+        />
+      </div>
+    </motion.section>
 
-      <motion.section
-  className="sticky top-0 h-screen w-full flex items-center justify-center bg-black z-0"
-  initial={{ scale: 1, filter: "brightness(0.8)" }}
-  transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
->
-  <iframe
-    className="w-[98%] h-[100%] border-none rounded-lg shadow-xl"
-    src="https://data.opendevelopmentmekong.net/odm-short-url/496ba301-2c7d-470e-9b88-924530c4cdd6"
-    allowFullScreen
-  />
-</motion.section>
+
+
 
       {/* Fullscreen Slideshow Section */}
-      <section className="relative w-screen h-screen z-20">
+      <section className="relative w-screen h-screen z-20 mt-10">
         <Slideshow />
       </section>
 

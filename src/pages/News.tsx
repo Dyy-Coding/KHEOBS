@@ -1,20 +1,18 @@
-// pages/News.tsx
 import React, { useState } from 'react';
 import { Calendar, Clock, Mail, ArrowRight } from 'lucide-react';
 import { newsArticles, events, categories } from './DataNews';
 import CategoryFilterNew from './CategoryFilterNew';
+import HeroCarousel from './HeroCarousel';
 
 const NewsPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  // Filter by category first
   const filteredByCategory =
     selectedCategory === 'all'
       ? newsArticles
       : newsArticles.filter((article) => article.category === selectedCategory);
 
-  // Then filter by search term in title or excerpt
   const filteredArticles = filteredByCategory.filter((article) =>
     article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     article.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
@@ -23,6 +21,7 @@ const NewsPage: React.FC = () => {
   return (
     <div className="bg-white min-h-screen py-16 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-7xl mx-auto">
+        {/* Header */}
         <header className="text-center mb-12 border-b border-gray-200 pb-6">
           <h1 className="text-5xl font-extrabold text-gray-900">Today's Headlines</h1>
           <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
@@ -31,52 +30,44 @@ const NewsPage: React.FC = () => {
         </header>
 
         {/* Featured Image Section */}
-        <div className="relative w-full h-[400px] rounded-xl overflow-hidden mb-12 shadow-lg">
-          <img
-            src="https://theaseanmagazine.asean.org/files/media/2023/03/AFF_7636.jpg"
-            alt="Featured News"
-            className="object-cover w-full h-full"
-          />
-          <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-8">
-            <h2 className="text-white text-3xl font-bold mb-2">
-              Cambodia’s Tech Boom: Youth Innovation in the Digital Era
-            </h2>
-            <p className="text-white/90 text-sm max-w-xl">
-              From startups to smart city projects, young Cambodian tech leaders are reshaping the country’s future.
-            </p>
+        <div className="relative w-full h-[400px] rounded-xl overflow-hidden mb-16 shadow-lg">
+          <HeroCarousel/>
+        </div>
+
+        {/* Filter & Search Row */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12 max-w-5xl mx-auto">
+               <div className="w-full md:w-[340px]">
+            <input
+              type="search"
+              placeholder="Search news articles..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400
+                         focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+              aria-label="Search news articles"
+            />
           </div>
+          <div className="w-full md:w-auto">
+            <CategoryFilterNew
+              categories={categories}
+              selected={selectedCategory}
+              onSelect={setSelectedCategory}
+            />
+          </div>
+     
         </div>
 
-        {/* Category Filter */}
-        <CategoryFilterNew
-          categories={categories}
-          selected={selectedCategory}
-          onSelect={setSelectedCategory}
-        />
-
-        {/* Search Bar */}
-        <div className="max-w-md mx-auto mt-6">
-          <input
-            type="search"
-            placeholder="Search news articles..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400
-                       focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-            aria-label="Search news articles"
-          />
-        </div>
-
-        <main className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
+        {/* Main Content */}
+        <main className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Articles Section */}
           <section className="lg:col-span-2 space-y-8">
             {filteredArticles.length === 0 && (
               <p className="text-center text-gray-500 mt-20 text-lg">No articles found.</p>
             )}
 
-            {filteredArticles.map((article, index) => (
+            {filteredArticles.map((article) => (
               <article
-                key={index}
+                key={article.id}
                 className="bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <img
@@ -113,7 +104,7 @@ const NewsPage: React.FC = () => {
           </section>
 
           {/* Sidebar */}
-          <aside className="space-y-8">
+          <aside className="space-y-8 lg:sticky lg:top-24">
             <div className="bg-white p-6 shadow-md rounded-xl">
               <h3 className="text-xl font-semibold text-gray-900 mb-4 border-b pb-2">Upcoming Events</h3>
               <ul className="space-y-4">

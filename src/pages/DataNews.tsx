@@ -1,6 +1,8 @@
 // components/DataNews.tsx
+
 export const newsArticles = [
   {
+    id: 1,
     title: "New Air Quality Monitoring Station Launched in Siem Reap",
     category: "Environment",
     date: "January 18, 2025",
@@ -12,9 +14,10 @@ export const newsArticles = [
     tags: ["Air Quality", "Siem Reap", "Environmental Monitoring"]
   },
   {
+    id: 2,
     title: "Traditional Medicine Research Receives International Recognition",
     category: "Health",
-    date: "January 15, 2025", 
+    date: "January 15, 2025",
     readTime: "5 min read",
     author: "Dr. Sophea Chan",
     excerpt: "Cambodian researchers' work on traditional herbal remedies published in leading international journal, highlighting the potential of indigenous medicine.",
@@ -23,10 +26,11 @@ export const newsArticles = [
     tags: ["Traditional Medicine", "Research", "International Recognition"]
   },
   {
+    id: 3,
     title: "Community Garden Initiative Expands to 50 Villages",
     category: "Community",
     date: "January 12, 2025",
-    readTime: "4 min read", 
+    readTime: "4 min read",
     author: "Kong Sreypov",
     excerpt: "Successful pilot program promoting food security and community health through sustainable gardening practices now reaches thousands of families.",
     image: "https://images.pexels.com/photos/1080696/pexels-photo-1080696.jpeg",
@@ -34,6 +38,7 @@ export const newsArticles = [
     tags: ["Community Health", "Food Security", "Rural Development"]
   },
   {
+    id: 4,
     title: "Mobile Health Clinics Report 40% Increase in Rural Access",
     category: "Health",
     date: "January 10, 2025",
@@ -45,6 +50,7 @@ export const newsArticles = [
     tags: ["Mobile Health", "Rural Access", "GIS Technology"]
   },
   {
+    id: 5,
     title: "Student Research Competition Winners Announced",
     category: "Education",
     date: "January 8, 2025",
