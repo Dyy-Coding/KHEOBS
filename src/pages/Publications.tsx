@@ -1,124 +1,31 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Filter, Download, ExternalLink, Calendar, Users } from 'lucide-react';
+import { publications } from './publicationsData';
 
 const Publications = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterYear, setFilterYear] = useState('all');
   const [filterType, setFilterType] = useState('all');
 
-  const publications = [
-    {
-      id: 1,
-      title: "Climate Change Impacts on Agricultural Productivity in Cambodia",
-      authors: ["Sophea Chan", "Ratha Pich", "Srey Leak"],
-      journal: "Journal of Climate Change Research",
-      year: 2024,
-      type: "Journal Article",
-      abstract: "This study examines the effects of climate change on agricultural productivity in rural Cambodia, analyzing temperature and precipitation trends over the past two decades.",
-      doi: "10.1016/j.climatechange.2024.001",
-      citations: 15,
-      pdfUrl: "#"
-    },
-    {
-      id: 2,
-      title: "Water Quality Assessment in the Mekong River Basin",
-      authors: ["Ratha Pich", "Virak Nhem"],
-      journal: "Environmental Monitoring and Assessment",
-      year: 2023,
-      type: "Journal Article",
-      abstract: "A comprehensive assessment of water quality parameters in the Mekong River Basin, utilizing advanced sensor networks and machine learning techniques.",
-      doi: "10.1007/s10661-023-11234-5",
-      citations: 28,
-      pdfUrl: "#"
-    },
-    {
-      id: 3,
-      title: "Biodiversity Conservation Strategies for Cambodian National Parks",
-      authors: ["Sophea Chan", "Srey Leak"],
-      journal: "Conservation Biology",
-      year: 2023,
-      type: "Journal Article",
-      abstract: "This paper presents innovative conservation strategies for protecting endangered species and ecosystems in Cambodia's national parks.",
-      doi: "10.1111/cobi.14089",
-      citations: 42,
-      pdfUrl: "#"
-    },
-    {
-      id: 4,
-      title: "Urban Heat Island Effects in Phnom Penh: Causes and Mitigation",
-      authors: ["Virak Nhem", "Sophea Chan"],
-      journal: "Urban Climate",
-      year: 2022,
-      type: "Journal Article",
-      abstract: "An analysis of urban heat island effects in Phnom Penh and recommendations for green infrastructure solutions.",
-      doi: "10.1016/j.uclim.2022.101234",
-      citations: 18,
-      pdfUrl: "#"
-    },
-    {
-      id: 5,
-      title: "Renewable Energy Potential Assessment for Cambodia",
-      authors: ["Virak Nhem", "Ratha Pich"],
-      journal: "Renewable Energy",
-      year: 2022,
-      type: "Journal Article",
-      abstract: "A comprehensive assessment of solar and wind energy potential across Cambodia for sustainable energy transition planning.",
-      doi: "10.1016/j.renene.2022.05.123",
-      citations: 35,
-      pdfUrl: "#"
-    },
-    {
-      id: 6,
-      title: "Climate Adaptation Strategies for Rural Communities",
-      authors: ["Srey Leak", "Sophea Chan", "Ratha Pich"],
-      journal: "Proceedings of ASEAN Climate Conference",
-      year: 2024,
-      type: "Conference Paper",
-      abstract: "This conference paper presents community-based adaptation strategies for climate resilience in rural Cambodia.",
-      doi: "10.1109/ACC.2024.9876543",
-      citations: 8,
-      pdfUrl: "#"
-    },
-    {
-      id: 7,
-      title: "Coastal Erosion Patterns and Protection Measures in Cambodia",
-      authors: ["Ratha Pich", "Srey Leak"],
-      journal: "Coastal Engineering",
-      year: 2021,
-      type: "Journal Article",
-      abstract: "Analysis of coastal erosion patterns and development of protection strategies for vulnerable coastal communities.",
-      doi: "10.1016/j.coastaleng.2021.103912",
-      citations: 22,
-      pdfUrl: "#"
-    },
-    {
-      id: 8,
-      title: "Environmental Monitoring Systems for Sustainable Development",
-      authors: ["Sophea Chan", "Virak Nhem"],
-      journal: "Environmental Science & Technology",
-      year: 2021,
-      type: "Journal Article",
-      abstract: "Development of integrated environmental monitoring systems for sustainable development in Southeast Asia.",
-      doi: "10.1021/acs.est.1c02345",
-      citations: 31,
-      pdfUrl: "#"
-    }
-  ];
-
   const filteredPublications = publications.filter(pub => {
     const matchesSearch = pub.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         pub.authors.some(author => author.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                         pub.journal.toLowerCase().includes(searchTerm.toLowerCase());
-    
+      pub.authors.some(author => author.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      pub.journal.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesYear = filterYear === 'all' || pub.year.toString() === filterYear;
     const matchesType = filterType === 'all' || pub.type === filterType;
-    
+
     return matchesSearch && matchesYear && matchesType;
   });
 
   const years = [...new Set(publications.map(pub => pub.year))].sort((a, b) => b - a);
   const types = [...new Set(publications.map(pub => pub.type))];
+
+  const totalCitations = publications.reduce((acc, pub) => acc + pub.citations, 0);
+  const thisYear = new Date().getFullYear();
+  const publicationsThisYear = publications.filter(pub => pub.year === thisYear).length;
+  const journalPartners = new Set(publications.map(pub => pub.journal)).size;
 
   return (
     <div className="pt-16">
@@ -154,7 +61,7 @@ const Publications = () => {
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-            
+
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <Filter className="text-gray-400 w-5 h-5" />
@@ -169,7 +76,7 @@ const Publications = () => {
                   ))}
                 </select>
               </div>
-              
+
               <select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
@@ -212,33 +119,35 @@ const Publications = () => {
                         <span>{publication.year}</span>
                       </div>
                     </div>
-                    
+
                     <h3 className="text-xl font-bold text-gray-900 mb-2">{publication.title}</h3>
-                    
+
                     <div className="flex items-center text-gray-600 mb-2">
                       <Users className="w-4 h-4 mr-1" />
                       <span className="text-sm">{publication.authors.join(', ')}</span>
                     </div>
-                    
+
                     <p className="text-blue-700 font-medium mb-3">{publication.journal}</p>
-                    
+
                     <p className="text-gray-700 mb-4 line-clamp-3">{publication.abstract}</p>
-                    
+
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4 text-sm text-gray-500">
                         <span>DOI: {publication.doi}</span>
                         <span>Citations: {publication.citations}</span>
                       </div>
-                      
+
                       <div className="flex items-center gap-2">
-                        <button className="flex items-center px-3 py-1 text-blue-700 border border-blue-700 rounded hover:bg-blue-50 transition-colors">
+                        <a href={publication.pdfUrl} target="_blank" rel="noopener noreferrer"
+                          className="flex items-center px-3 py-1 text-blue-700 border border-blue-700 rounded hover:bg-blue-50 transition-colors">
                           <Download className="w-4 h-4 mr-1" />
                           PDF
-                        </button>
-                        <button className="flex items-center px-3 py-1 text-gray-700 border border-gray-300 rounded hover:bg-gray-50 transition-colors">
+                        </a>
+                        <a href={`https://doi.org/${publication.doi}`} target="_blank" rel="noopener noreferrer"
+                          className="flex items-center px-3 py-1 text-gray-700 border border-gray-300 rounded hover:bg-gray-50 transition-colors">
                           <ExternalLink className="w-4 h-4 mr-1" />
                           View
-                        </button>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -260,22 +169,22 @@ const Publications = () => {
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Publication Statistics</h2>
           </motion.div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-800 mb-2">45</div>
+              <div className="text-3xl font-bold text-blue-800 mb-2">{publications.length}</div>
               <p className="text-gray-600">Total Publications</p>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-red-600 mb-2">12</div>
+              <div className="text-3xl font-bold text-red-600 mb-2">{publicationsThisYear}</div>
               <p className="text-gray-600">This Year</p>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">250+</div>
+              <div className="text-3xl font-bold text-green-600 mb-2">{totalCitations}</div>
               <p className="text-gray-600">Total Citations</p>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">8</div>
+              <div className="text-3xl font-bold text-purple-600 mb-2">{journalPartners}</div>
               <p className="text-gray-600">Journal Partners</p>
             </div>
           </div>
