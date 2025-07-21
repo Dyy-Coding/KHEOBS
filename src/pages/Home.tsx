@@ -115,52 +115,59 @@ const Home: React.FC = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-red-700 text-white min-h-screen flex items-center">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage:
-              "url(https://i.pinimg.com/1200x/63/d9/31/63d9312343bc6d160e597b25c2abd43f.jpg)",
-          }}
-        ></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/70 to-red-700/80"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">
-              Climate & Environment
-              <span className="block text-red-400">Research Lab</span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-100 drop-shadow-sm">
-              Advancing climate science and environmental monitoring in Cambodia through
-              innovative research, cutting-edge tools, and sustainable solutions.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <motion.Link
-                to="/research"
-                className="bg-white text-blue-900 px-10 py-3 rounded-lg font-semibold shadow-md hover:shadow-xl transition-shadow inline-flex items-center justify-center"
-                whileHover={buttonHover}
-                whileTap={{ scale: 0.95 }}
-              >
-                Explore Research
-                <ChevronRight className="ml-2 w-5 h-5" />
-              </motion.Link>
-              <motion.Link
-                to="/about"
-                className="border-2 border-white text-white px-10 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-900 transition-colors inline-flex items-center justify-center shadow-md"
-                whileHover={buttonHover}
-                whileTap={{ scale: 0.95 }}
-              >
-                Learn More
-              </motion.Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+<section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-red-700 text-white min-h-screen flex items-center overflow-hidden">
+  {/* Background Image */}
+  <div
+    className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 blur-sm"
+    style={{
+      backgroundImage:
+        "url(https://i.pinimg.com/1200x/63/d9/31/63d9312343bc6d160e597b25c2abd43f.jpg)",
+    }}
+  ></div>
+
+  {/* Overlay Gradient */}
+  <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-blue-900/70 to-red-900/70"></div>
+
+  {/* Content */}
+  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+      className="text-center"
+    >
+      <h1 className="text-4xl md:text-6xl font-black mb-6 drop-shadow-lg leading-tight">
+        <span className="block">Climate & Environment</span>
+        <span className="block text-red-400">Research Lab Cambodia</span>
+      </h1>
+      <p className="text-lg md:text-2xl mb-10 max-w-3xl mx-auto text-gray-200 drop-shadow">
+        Empowering Cambodia through sustainable research, technology, and environmental advocacy.
+      </p>
+
+      {/* CTA Buttons */}
+      <div className="flex flex-col sm:flex-row gap-6 justify-center">
+        <motion.a
+          href="/research"
+          className="bg-white text-blue-900 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-2xl transition-all inline-flex items-center justify-center"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Explore Research
+          <ChevronRight className="ml-2 w-5 h-5" />
+        </motion.a>
+        <motion.a
+          href="/about"
+          className="border-2 border-white text-white px-8 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-900 transition-all inline-flex items-center justify-center shadow-lg"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Learn More
+        </motion.a>
+      </div>
+    </motion.div>
+  </div>
+</section>
+
 
       {/* Statistics Section */}
       <section className="py-20 bg-gray-50">
