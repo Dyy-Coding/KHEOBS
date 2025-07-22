@@ -31,12 +31,12 @@ const NewsPage: React.FC = () => {
 
         {/* Featured Image Section */}
         <div className="relative w-full h-[400px] rounded-xl overflow-hidden mb-16 shadow-lg">
-          <HeroCarousel/>
+          <HeroCarousel />
         </div>
 
         {/* Filter & Search Row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12 max-w-5xl mx-auto">
-               <div className="w-full md:w-[340px]">
+          <div className="w-full md:w-[340px]">
             <input
               type="search"
               placeholder="Search news articles..."
@@ -54,7 +54,6 @@ const NewsPage: React.FC = () => {
               onSelect={setSelectedCategory}
             />
           </div>
-     
         </div>
 
         {/* Main Content */}
@@ -66,40 +65,47 @@ const NewsPage: React.FC = () => {
             )}
 
             {filteredArticles.map((article) => (
-              <article
+              <a
                 key={article.id}
-                className="bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
+                href={article.facebookLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
               >
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="p-6">
-                  <span className="text-xs font-semibold text-red-600 uppercase tracking-wide">
-                    {article.category}
-                  </span>
-                  <h2 className="mt-2 text-2xl font-bold text-gray-900 leading-tight">
-                    {article.title}
-                  </h2>
-                  <div className="mt-2 text-sm text-gray-500 flex gap-4 items-center">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      {article.date}
+                <article
+                  className="bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
+                >
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className="w-full h-64 object-cover"
+                  />
+                  <div className="p-6">
+                    <span className="text-xs font-semibold text-red-600 uppercase tracking-wide">
+                      {article.category}
+                    </span>
+                    <h2 className="mt-2 text-2xl font-bold text-gray-900 leading-tight">
+                      {article.title}
+                    </h2>
+                    <div className="mt-2 text-sm text-gray-500 flex gap-4 items-center">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {article.date}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        {article.readTime}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      {article.readTime}
-                    </div>
+                    <p className="mt-4 text-gray-700 text-base line-clamp-3">
+                      {article.excerpt}
+                    </p>
+                    <span className="mt-5 inline-flex items-center text-red-600 hover:underline text-sm font-semibold">
+                      View on Facebook <ArrowRight className="ml-2 w-4 h-4" />
+                    </span>
                   </div>
-                  <p className="mt-4 text-gray-700 text-base line-clamp-3">
-                    {article.excerpt}
-                  </p>
-                  <button className="mt-5 inline-flex items-center text-red-600 hover:underline text-sm font-semibold">
-                    Read More <ArrowRight className="ml-2 w-4 h-4" />
-                  </button>
-                </div>
-              </article>
+                </article>
+              </a>
             ))}
           </section>
 

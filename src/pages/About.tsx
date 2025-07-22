@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, Send, Target, Globe, Award, Users } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, Target, Globe, Award, Users,Facebook, X, Linkedin, Youtube } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import TeamSection from './TeamSection'; // adjust path as needed
 import IntroductionSection from './IntroductionSection';
@@ -429,45 +429,101 @@ const About: React.FC = () => {
               </form>
             </motion.div>
 
-            {/* Map Section */}
             <motion.section
-              aria-label="Map and location information"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="bg-white rounded-lg shadow-lg overflow-hidden"
-            >
-              <div className="h-64 bg-gray-200 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                  <p className="text-gray-600">Interactive Map</p>
-                  <p className="text-sm text-gray-500">Google Maps integration would be here</p>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Visit Our Lab</h3>
-                <div className="space-y-3">
-                  <div className="flex items-start">
-                    <MapPin className="w-5 h-5 text-blue-600 mr-3 mt-0.5" />
-                    <div>
-                      <p className="font-medium text-gray-900">KHEOBS Research Laboratory</p>
-                      <p className="text-gray-600">Phnom Penh, Cambodia</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Clock className="w-5 h-5 text-blue-600 mr-3 mt-0.5" />
-                    <div>
-                      <p className="font-medium text-gray-900">Office Hours</p>
-                      <p className="text-gray-600">Monday - Friday: 8:00 AM - 5:00 PM</p>
-                      <p className="text-gray-600">Saturday: 8:00 AM - 12:00 PM</p>
-                    </div>
-                  </div>
-                </div>
-                <button className="mt-6 w-full bg-blue-100 text-blue-800 py-2 px-4 rounded-lg hover:bg-blue-200 transition-colors">
-                  Get Directions
-                </button>
-              </div>
-            </motion.section>
+  aria-label="Map and location information"
+  initial={{ opacity: 0, x: 20 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8 }}
+  className="bg-white rounded-lg shadow-lg overflow-hidden"
+>
+  {/* Embedded Google Map */}
+  <div className="h-64 sm:h-96">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d500303.1776173807!2d104.56052497083566!3d11.579177760136952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109513dc76a6be3%3A0x9c010ee85ab525bb!2sPhnom%20Penh!5e0!3m2!1sen!2skh!4v1753147809269!5m2!1sen!2skh"
+      width="100%"
+      height="100%"
+      style={{ border: 0 }}
+      allowFullScreen
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      title="Google Map - Phnom Penh"
+    ></iframe>
+  </div>
+
+  {/* Location Info */}
+  <div className="p-6">
+    <h3 className="text-lg font-semibold text-gray-900 mb-4">Visit Our Lab</h3>
+    <div className="space-y-3">
+      <div className="flex items-start">
+        <MapPin className="w-5 h-5 text-blue-600 mr-3 mt-0.5" />
+        <div>
+          <p className="font-medium text-gray-900">KHEOBS Research Laboratory</p>
+          <p className="text-gray-600">Phnom Penh, Cambodia</p>
+        </div>
+      </div>
+      <div className="flex items-start">
+        <Clock className="w-5 h-5 text-blue-600 mr-3 mt-0.5" />
+        <div>
+          <p className="font-medium text-gray-900">Office Hours</p>
+          <p className="text-gray-600">Monday - Friday: 8:00 AM - 5:00 PM</p>
+          <p className="text-gray-600">Saturday: 8:00 AM - 12:00 PM</p>
+        </div>
+      </div>
+    </div>
+    <button className="mt-6 w-full bg-blue-100 text-blue-800 py-2 px-4 rounded-lg hover:bg-blue-200 transition-colors">
+      Get Directions
+    </button>
+  </div>
+
+  {/* Social Media Links */}
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+    className="px-6 pb-8 text-center border-t border-gray-200"
+  >
+    <h3 className="text-xl font-bold text-gray-900 mb-4">Follow Us</h3>
+    <div className="flex justify-center space-x-6">
+      <a
+        href="https://facebook.com/yourpage"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 hover:text-blue-800 transition-colors"
+        aria-label="Facebook"
+      >
+        <Facebook className="w-6 h-6" />
+      </a>
+      <a
+        href="https://x.com/yourhandle"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-800 hover:text-black transition-colors"
+        aria-label="X (Twitter)"
+      >
+        <X className="w-6 h-6" />
+      </a>
+      <a
+        href="https://linkedin.com/in/yourprofile"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-700 hover:text-blue-900 transition-colors"
+        aria-label="LinkedIn"
+      >
+        <Linkedin className="w-6 h-6" />
+      </a>
+      <a
+        href="https://youtube.com/yourchannel"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-red-600 hover:text-red-800 transition-colors"
+        aria-label="YouTube"
+      >
+        <Youtube className="w-6 h-6" />
+      </a>
+    </div>
+  </motion.div>
+</motion.section>
+
           </div>
         </div>
       </section>
