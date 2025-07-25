@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Slideshow from './SlidesShow';
 import { 
   ExternalLink, 
   Monitor, 
@@ -149,35 +150,46 @@ const Tools = () => {
 
   return (
     <div className="pt-16 bg-gray-50 min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-              Research Tools
-            </h1>
-            <p className="text-xl max-w-4xl mx-auto leading-relaxed">
-              Access our comprehensive suite of environmental monitoring tools, 
-              interactive dashboards, and data visualization platforms designed 
-              for researchers, policymakers, and the public.
-            </p>
-            <div className="mt-8 flex items-center justify-center space-x-4">
-              <button
-                onClick={() => setIsSupportModalOpen(true)}
-                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-6 py-3 rounded-lg transition-colors flex items-center"
-              >
-                <HelpCircle className="w-5 h-5 mr-2" />
-                Need Help?
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+     {/* Hero Section */}
+<section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white py-20 overflow-hidden">
+  {/* Background image */}
+  <div
+    className="absolute inset-0 bg-cover bg-center"
+    style={{ backgroundImage: "url('https://i.pinimg.com/1200x/4b/7b/98/4b7b98354fbd5d9d3df7e1b5b1f465a5.jpg')" }}
+    aria-hidden="true"
+  ></div>
+
+  {/* Dark overlay for text contrast */}
+  <div className="absolute inset-0 bg-black opacity-50" aria-hidden="true"></div>
+
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="text-center"
+    >
+      <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+        Research Resources
+      </h1>
+      <p className="text-xl max-w-4xl mx-auto leading-relaxed">
+        Access our comprehensive suite of environmental monitoring tools, 
+        interactive dashboards, and data visualization platforms designed 
+        for researchers, policymakers, and the public.
+      </p>
+      <div className="mt-8 flex items-center justify-center space-x-4">
+        <button
+          onClick={() => setIsSupportModalOpen(true)}
+          className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-6 py-3 rounded-lg transition-colors flex items-center"
+        >
+          <HelpCircle className="w-5 h-5 mr-2" />
+          Need Help?
+        </button>
+      </div>
+    </motion.div>
+  </div>
+</section>
+
 
       {/* Access Process Info */}
       <section className="py-6 bg-white border-b border-gray-200">
@@ -189,7 +201,7 @@ const Tools = () => {
                   <Lock className="w-6 h-6 text-blue-600" />
                 </div>
                 <div className="ml-4">
-                  <h3 className="font-semibold text-gray-900">Secure Tool Access</h3>
+                  <h3 className="font-semibold text-gray-900">Secure Resource Access</h3>
                   <p className="text-gray-600 text-sm">Some tools require authentication and access approval for data security</p>
                 </div>
               </div>
@@ -221,7 +233,7 @@ const Tools = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
-                placeholder="Search tools..."
+                placeholder="Search resources..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -254,7 +266,7 @@ const Tools = () => {
           {filteredTools.length === 0 ? (
             <div className="text-center py-12">
               <Filter className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No tools found</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">No resources found</h3>
               <p className="text-gray-600">Try adjusting your search or filter criteria</p>
             </div>
           ) : (
@@ -348,7 +360,7 @@ const Tools = () => {
                           </>
                         ) : (
                           <>
-                            Access Tool
+                            Access Resource
                             <ExternalLink className="ml-2 w-4 h-4" />
                           </>
                         )}
@@ -406,7 +418,12 @@ const Tools = () => {
         </div>
       </section>
 
-      {/* Featured Tool Embed */}
+       {/* Fullscreen Slideshow Section */}
+      <section className="relative w-screen h-screen z-20 mt-10">
+        <Slideshow />
+      </section> 
+
+      {/* Featured Tool Embed
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -454,7 +471,7 @@ const Tools = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ArcGIS StoryMap Section */}
       <section className="py-16 bg-white">

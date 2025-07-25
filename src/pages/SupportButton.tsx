@@ -19,7 +19,7 @@ const SupportButton = () => {
       whileTap={{ scale: 0.95 }}
     >
       <Heart className="mr-2 w-5 h-5 group-hover:text-red-500 transition-colors" />
-      Support Our Mission
+      
     </motion.button>
   );
 };

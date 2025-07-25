@@ -41,7 +41,7 @@ const Header = () => {
         { name: 'Publications', href: '/publications' },
       ],
     },
-    { name: 'Tools', href: '/tools' },
+    { name: 'Resources', href: '/tools' },
     { name: 'News', href: '/news' },
     // Contact removed from here, replaced with button below
   ];

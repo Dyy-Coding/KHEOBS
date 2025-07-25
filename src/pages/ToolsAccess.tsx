@@ -37,8 +37,8 @@ const ToolsAccess: React.FC<ToolsAccessProps> = ({ isOpen, onClose, toolName, to
   const steps = [
     { id: 1, title: 'Authentication', description: 'Login or Register' },
     { id: 2, title: 'Access Level', description: 'Select User Type' },
-    { id: 3, title: 'Tool Agreement', description: 'Terms & Conditions' },
-    { id: 4, title: 'Tool Access', description: 'Launch Tool' }
+    { id: 3, title: 'Resource Agreement', description: 'Terms & Conditions' },
+    { id: 4, title: 'Resource Access', description: 'Launch Resource' }
   ];
 
   const userTypes: UserType[] = [
@@ -229,7 +229,7 @@ Best regards`);
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6 rounded-t-xl">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold mb-2">Tool Access Portal</h2>
+              <h2 className="text-2xl font-bold mb-2">Resource Access Portal</h2>
               <p className="text-blue-100">Accessing: {toolName}</p>
             </div>
             <button
@@ -279,7 +279,7 @@ Best regards`);
             >
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Authentication Required</h3>
-                <p className="text-gray-600">Please login or register to access research tools</p>
+                <p className="text-gray-600">Please login or register to access research resources</p>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -515,7 +515,7 @@ Best regards`);
                       Access Level: {userType.charAt(0).toUpperCase() + userType.slice(1)}
                     </h4>
                     <p className="text-green-700 text-sm">
-                      You have been granted {userType} level access to this tool. 
+                      You have been granted {userType} level access to this resource. 
                       Your session will remain active for 24 hours.
                     </p>
                   </div>
@@ -529,7 +529,7 @@ Best regards`);
                   <ul className="text-sm text-gray-600 space-y-2">
                     <li className="flex items-start">
                       <span className="text-blue-600 mr-2">•</span>
-                      Navigate using the toolbar at the top
+                      Navigate using the resource bar at the top
                     </li>
                     <li className="flex items-start">
                       <span className="text-blue-600 mr-2">•</span>

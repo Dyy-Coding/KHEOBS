@@ -184,7 +184,7 @@ const Home: React.FC = () => {
           </motion.div>
         </div>
       </section>
-    <motion.section
+    {/* <motion.section
       className="sticky h-[150vh] w-screen flex items-center justify-center bg-black z-0 overflow-hidden"
       style={{ top: '-50vh'}}
       initial={{ scale: 1, filter: "brightness(0.8)" }}
@@ -203,58 +203,21 @@ const Home: React.FC = () => {
           className="w-full h-full object-cover rounded-xl shadow-2xl"
         />
       </div>
-    </motion.section>
+    </motion.section> */}
 
 
 
 
-      {/* Fullscreen Slideshow Section */}
+      {/* Fullscreen Slideshow Section
       <section className="relative w-screen h-screen z-20 mt-10">
         <Slideshow />
-      </section>
+      </section> */}
 
       <section className="relative z-20">
         <LatestUpdate />
       </section>
 
-      {/* Call to Action */}
-      <motion.section
-        className="py-20 bg-gradient-to-r from-blue-800 to-red-600 text-white relative z-20"
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Mission</h2>
-            <p className="text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-              Collaborate with us to create sustainable solutions for Cambodia's environmental challenges.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <motion.Link
-                to="/contact"
-                className="bg-white text-blue-900 px-10 py-3 rounded-lg font-semibold shadow-md hover:shadow-xl transition-shadow inline-flex items-center justify-center"
-                whileHover={{ scale: 1.1, boxShadow: "0 0 10px rgba(255,255,255,0.8)" }}
-                animate={{ 
-                  scale: [1, 1.05, 1],
-                  boxShadow: ["0 0 0 rgba(255,255,255,0)", "0 0 15px rgba(255,255,255,0.9)", "0 0 0 rgba(255,255,255,0)"]
-                }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              >
-                Get Involved
-              </motion.Link>
-              <motion.Link
-                to="/publications"
-                className="border-2 border-white text-white px-10 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-900 transition-colors inline-flex items-center justify-center shadow-md"
-                whileHover={buttonHover}
-                whileTap={{ scale: 0.95 }}
-              >
-                View Publications
-              </motion.Link>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
+      
     </div>
   );
 };

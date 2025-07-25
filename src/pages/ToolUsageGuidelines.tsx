@@ -17,7 +17,7 @@ const steps = [
     // This can open the main Tools page or dashboard
     hasLaunchButton: true,
     launchUrl: "/tools", // or whatever route for tools
-    launchLabel: "Explore Tools",
+    launchLabel: "Explore Resources",
   },
   {
     id: 3,
@@ -51,7 +51,7 @@ const ToolUsageGuidelines: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
       <div className="max-w-3xl w-full bg-white rounded-lg shadow-lg p-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">
-          Tool Usage Guidelines
+          Resource Usage Guidelines
         </h1>
 
         <p className="text-center text-gray-700 mb-10 max-w-lg mx-auto">

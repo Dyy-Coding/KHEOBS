@@ -191,63 +191,7 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Values</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              The principles that guide our research and community engagement.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="bg-white rounded-lg shadow-lg p-8 text-center"
-            >
-              <Award className="w-12 h-12 text-blue-800 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Excellence</h3>
-              <p className="text-gray-600">
-                Committed to the highest standards of scientific rigor and research quality.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="bg-white rounded-lg shadow-lg p-8 text-center"
-            >
-              <Users className="w-12 h-12 text-red-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Collaboration</h3>
-              <p className="text-gray-600">
-                Building partnerships with communities, institutions, and organizations.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-white rounded-lg shadow-lg p-8 text-center"
-            >
-              <Globe className="w-12 h-12 text-green-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Sustainability</h3>
-              <p className="text-gray-600">
-                Developing solutions that balance environmental protection with development needs.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Contact Section */}
       <section aria-labelledby="contact-section-title" className="py-16 bg-gray-50" id="contact-section">

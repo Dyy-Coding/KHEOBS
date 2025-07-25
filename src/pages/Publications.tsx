@@ -29,9 +29,19 @@ const Publications = () => {
 
   return (
     <div className="pt-16">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-900 to-blue-800 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-blue-900 to-blue-800 text-white py-16 overflow-hidden">
+        {/* Background image with blur */}
+        <div
+          className="absolute inset-0 bg-cover bg-center filter blur-sm opacity-70"
+          style={{ backgroundImage: "url('https://www.irrawaddy.com/wp-content/uploads/2025/06/Thailand-and-Cambodia-issues-June-1825-feat-750x375.jpg')" }}
+          aria-hidden="true"
+        ></div>
+
+  {/* Optional: dark overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black opacity-30" aria-hidden="true"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -46,6 +56,7 @@ const Publications = () => {
           </motion.div>
         </div>
       </section>
+
 
       {/* Search and Filter */}
       <section className="py-8 bg-white border-b">

@@ -193,22 +193,34 @@ const Research = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-900 to-blue-800 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Research Projects</h1>
-            <p className="text-xl max-w-3xl mx-auto">
-              Explore our comprehensive research initiatives addressing critical environmental 
-              challenges in Cambodia through innovative solutions and community partnerships.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      {/* Hero Section */}
+<section className="relative text-white py-16 overflow-hidden">
+  {/* Background image with blur */}
+  <div
+    className="absolute inset-0 bg-cover bg-center filter  opacity-100"
+    style={{ backgroundImage: "url('https://i.pinimg.com/1200x/ab/6d/61/ab6d619cbf3202c497471366856a4b86.jpg')" }}
+    aria-hidden="true"
+  ></div>
+
+  {/* Dark overlay for contrast */}
+  <div className="absolute inset-0 bg-black opacity-40" aria-hidden="true"></div>
+
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="text-center"
+    >
+      <h1 className="text-4xl md:text-5xl font-bold mb-6">Research Projects</h1>
+      <p className="text-xl max-w-3xl mx-auto">
+        Explore our comprehensive research initiatives addressing critical environmental 
+        challenges in Cambodia through innovative solutions and community partnerships.
+      </p>
+    </motion.div>
+  </div>
+</section>
+
 
       {/* Search and Filter */}
       <section className="py-8 bg-white border-b">
