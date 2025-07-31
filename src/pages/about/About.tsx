@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, Send, Target, Globe, Award, Users,Facebook, X, Linkedin, Youtube } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, Target, Globe,Facebook, X, Linkedin, Youtube } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import TeamSection from './TeamSection'; // adjust path as needed
 import IntroductionSection from './IntroductionSection';
@@ -80,19 +80,20 @@ const About: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true);
-    try {
-      await new Promise(r => setTimeout(r, 2000));
-      setSubmitStatus('success');
-      reset();
-    } catch {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-      setTimeout(() => setSubmitStatus('idle'), 3000);
-    }
-  };
+  const onSubmit = async () => {
+  setIsSubmitting(true);
+  try {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setSubmitStatus('success');
+    reset();
+  } catch {
+    setSubmitStatus('error');
+  } finally {
+    setIsSubmitting(false);
+    setTimeout(() => setSubmitStatus('idle'), 3000);
+  }
+};
+
 
   return (
     <div className="pt-16">

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ExternalLink, Play } from 'lucide-react';
 
 const ToolSlideShow = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+ 
 
   const slides = [
     {
@@ -159,7 +160,7 @@ Would you like to visit the full research page?`;
                       <button 
                         onClick={() => handleExploreStoryMap(slides[currentSlide])}
                         disabled={isLoading}
-                        className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                        className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700  flex items-center shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                       >
                         {isLoading ? (
                           <>
@@ -176,7 +177,7 @@ Would you like to visit the full research page?`;
                       <button 
                         onClick={() => handleLearnMore(slides[currentSlide])}
                         disabled={isLoading}
-                        className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors shadow-sm hover:shadow-md transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                        className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50  shadow-sm hover:shadow-md transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                       >
                         Learn More
                       </button>

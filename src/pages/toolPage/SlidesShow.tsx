@@ -7,6 +7,7 @@ interface SlideshowItem {
   image: string;
 }
 
+
 const slideshowItems: SlideshowItem[] = [
   {
     title: "Climate Data Dashboard",

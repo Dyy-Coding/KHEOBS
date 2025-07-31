@@ -1,8 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Download, ExternalLink, Mail, FileText, HelpCircle, MessageCircle } from 'lucide-react';
-import { Resource } from '../types';
-
+interface Resource {
+  name: string;
+  description: string;
+  type: 'pdf' | 'link' | 'email';
+  url: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
 interface SupportResourcesProps {
   isOpen: boolean;
   onClose: () => void;

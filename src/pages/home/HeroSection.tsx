@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Users, Leaf, Award, Heart } from 'lucide-react';
+import { ChevronRight, Leaf, Award} from 'lucide-react';
 
-import SupportButton from './SupportButton';
 import ImpactStatsSection from './ImpactStatsSection'; // ✅ Imported here
 
 const HeroSection = () => {

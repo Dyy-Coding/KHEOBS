@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ChevronRight, Users, BookOpen, MapPin, TrendingUp } from 'lucide-react';
-import Slideshow from "./SlidesShow";
-import LatestUpdate from "./LatestUpdate";
+import {
+  ChevronRight,
+  FolderOpen,
+  BookOpen,
+  Users,
+  Globe,
+} from 'lucide-react';
+import LatestUpdate from './LatestUpdate';
 import HeroSection from './HeroSection';
 
 type IconType = React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -15,17 +20,20 @@ const containerVariants = {
       staggerChildren: 0.15,
     },
   },
-};
+} as const;
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } },
-};
-
-const buttonHover = {
-  scale: 1.05,
-  transition: { duration: 0.3, ease: "easeInOut" },
-};
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+} as const;
 
 interface AnimatedCounterProps {
   value: number;
@@ -33,7 +41,11 @@ interface AnimatedCounterProps {
   icon: IconType;
 }
 
-const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ value, label, icon: Icon }) => (
+const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
+  value,
+  label,
+  icon: Icon,
+}) => (
   <motion.div
     variants={itemVariants}
     className="text-center"
@@ -65,7 +77,7 @@ interface Project {
   title: string;
   description: string;
   image: string;
-  status: "Ongoing" | "Published";
+  status: 'Ongoing' | 'Published';
 }
 
 const Home: React.FC = () => {
@@ -85,42 +97,75 @@ const Home: React.FC = () => {
         impact: 1000,
       });
     }, 500);
-
     return () => clearTimeout(timer);
   }, []);
 
   const featuredProjects: Project[] = [
     {
-      title: "Climate Change Adaptation in Rural Cambodia",
-      description: "Developing sustainable solutions for agricultural communities facing climate challenges.",
-      image: "https://i.pinimg.com/736x/a3/61/8a/a3618acd1654089a3103edbb4a1a2ff1.jpg",
-      status: "Ongoing",
-    },
-    {
-      title: "Water Resource Management",
-      description: "Monitoring and preserving water quality in the Mekong River basin.",
+      title: 'Climate Change Adaptation in Rural Cambodia',
+      description:
+        'Developing sustainable solutions for agricultural communities facing climate challenges.',
       image:
-        "https://images.pexels.com/photos/681467/pexels-photo-681467.jpeg?auto=compress&cs=tinysrgb&w=600",
-      status: "Published",
+        'https://i.pinimg.com/736x/a3/61/8a/a3618acd1654089a3103edbb4a1a2ff1.jpg',
+      status: 'Ongoing',
     },
     {
-      title: "Biodiversity Conservation",
+      title: 'Water Resource Management',
+      description:
+        'Monitoring and preserving water quality in the Mekong River basin.',
+      image:
+        'https://images.pexels.com/photos/681467/pexels-photo-681467.jpeg?auto=compress&cs=tinysrgb&w=600',
+      status: 'Published',
+    },
+    {
+      title: 'Biodiversity Conservation',
       description:
         "Protecting endangered species and ecosystems in Cambodia's national parks.",
       image:
-        "https://images.pexels.com/photos/1534609/pexels-photo-1534609.jpeg?auto=compress&cs=tinysrgb&w=600",
-      status: "Ongoing",
+        'https://images.pexels.com/photos/1534609/pexels-photo-1534609.jpeg?auto=compress&cs=tinysrgb&w=600',
+      status: 'Ongoing',
     },
   ];
 
   return (
     <div className="pt-16">
       {/* Hero Section */}
-<section >
-     <HeroSection/>
-</section>
+      <section>
+        <HeroSection />
+      </section>
 
-
+      {/* Animated Stats Section */}
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            className="grid grid-cols-1 md:grid-cols-4 gap-6"
+          >
+            <AnimatedCounter
+              value={stats.projects}
+              label="Projects"
+              icon={FolderOpen}
+            />
+            <AnimatedCounter
+              value={stats.publications}
+              label="Publications"
+              icon={BookOpen}
+            />
+            <AnimatedCounter
+              value={stats.team}
+              label="Team Members"
+              icon={Users}
+            />
+            <AnimatedCounter
+              value={stats.impact}
+              label="People Impacted"
+              icon={Globe}
+            />
+          </motion.div>
+        </div>
+      </section>
 
       {/* Featured Research */}
       <section className="py-20">
@@ -131,9 +176,12 @@ const Home: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Featured Research</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              Featured Research
+            </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Discover our latest research initiatives addressing critical environmental challenges in Cambodia.
+              Discover our latest research initiatives addressing critical
+              environmental challenges in Cambodia.
             </p>
           </motion.div>
 
@@ -147,7 +195,10 @@ const Home: React.FC = () => {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                whileHover={{ scale: 1.03, boxShadow: "0 20px 25px rgba(0,0,0,0.15)" }}
+                whileHover={{
+                  scale: 1.03,
+                  boxShadow: '0 20px 25px rgba(0,0,0,0.15)',
+                }}
                 className="bg-white rounded-lg overflow-hidden shadow-md cursor-pointer transition-shadow"
               >
                 <div className="h-52 bg-gray-200 overflow-hidden">
@@ -161,16 +212,20 @@ const Home: React.FC = () => {
                   <div className="flex items-center justify-between mb-3">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        project.status === "Ongoing"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-blue-100 text-blue-800"
+                        project.status === 'Ongoing'
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-blue-100 text-blue-800'
                       }`}
                     >
                       {project.status}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
-                  <p className="text-gray-700 mb-6 leading-relaxed">{project.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-700 mb-6 leading-relaxed">
+                    {project.description}
+                  </p>
                   <Link
                     to="/research"
                     className="text-blue-800 hover:text-blue-600 font-semibold inline-flex items-center transition-colors"
@@ -184,40 +239,11 @@ const Home: React.FC = () => {
           </motion.div>
         </div>
       </section>
-    {/* <motion.section
-      className="sticky h-[150vh] w-screen flex items-center justify-center bg-black z-0 overflow-hidden"
-      style={{ top: '-50vh'}}
-      initial={{ scale: 1, filter: "brightness(0.8)" }}
-      animate={{ scale: 1.02, filter: "brightness(1)" }}
-      transition={{
-        duration: 10,
-        repeat: Infinity,
-        repeatType: "reverse",
-        ease: "easeInOut",
-      }}
-    >
-      <div className="w-full h-full">
-        <img
-          src="https://www.researchgate.net/publication/323211523/figure/fig1/AS:631595753033737@1527595570502/Map-of-Cambodia-and-location-of-the-16-research-sites.png"
-          alt="Climate Change in Cambodia"
-          className="w-full h-full object-cover rounded-xl shadow-2xl"
-        />
-      </div>
-    </motion.section> */}
 
-
-
-
-      {/* Fullscreen Slideshow Section
-      <section className="relative w-screen h-screen z-20 mt-10">
-        <Slideshow />
-      </section> */}
-
+      {/* Latest Update */}
       <section className="relative z-20">
         <LatestUpdate />
       </section>
-
-      
     </div>
   );
 };

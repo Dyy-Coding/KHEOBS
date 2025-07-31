@@ -18,8 +18,19 @@ import ClimateDashboard from './ClimateDashboard';
 import ToolsAccess from './ToolsAccess';
 import ToolSlideShow from './ToolSlideShow';
 import SupportResources from './SupportResources';
-import { Tool } from '../types';
 
+interface Tool {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  url: string;
+  features: string[];
+  icon: React.ComponentType<{ className?: string }>;
+  requiresAccess?: boolean;
+  status?: 'active' | 'maintenance' | 'coming-soon';
+}
 const Tools = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');

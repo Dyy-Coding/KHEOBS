@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  User, 
-  Lock, 
-  Mail, 
-  Building, 
-  FileText, 
-  CheckCircle, 
-  ArrowRight, 
+import {
+  User,
+  Lock,
+  Mail,
+  Building,
+  FileText,
+  CheckCircle,
+  ArrowRight,
   Download,
   Eye,
   X,
@@ -17,13 +17,42 @@ import {
   Clock,
   Globe
 } from 'lucide-react';
-import { ToolsAccessProps, UserType, FormData } from '../types';
+
+interface FormData {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  organization: string;
+  purpose: string;
+  agreeToTerms: boolean;
+}
+
+type UserTypeId = 'researcher' | 'student' | 'public';
+
+interface UserType {
+  id: UserTypeId;
+  title: string;
+  description: string;
+  features: string[];
+  icon: React.ComponentType<{ className?: string }>;
+  color: string;
+}
+
+interface ToolsAccessProps {
+  isOpen: boolean;
+  onClose: () => void;
+  toolName: string;
+  toolType: string;
+}
 
 const ToolsAccess: React.FC<ToolsAccessProps> = ({ isOpen, onClose, toolName, toolType }) => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userType, setUserType] = useState<'guest' | 'researcher' | 'student' | 'public'>('guest');
-  const [isLoading, setIsLoading] = useState(false);
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // ✅
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [userType, setUserType] = useState<UserTypeId | null>(null);
+
   const [formData, setFormData] = useState<FormData>({
     email: '',
     password: '',
@@ -31,14 +60,14 @@ const ToolsAccess: React.FC<ToolsAccessProps> = ({ isOpen, onClose, toolName, to
     lastName: '',
     organization: '',
     purpose: '',
-    agreeToTerms: false
+    agreeToTerms: false,
   });
 
   const steps = [
     { id: 1, title: 'Authentication', description: 'Login or Register' },
     { id: 2, title: 'Access Level', description: 'Select User Type' },
     { id: 3, title: 'Resource Agreement', description: 'Terms & Conditions' },
-    { id: 4, title: 'Resource Access', description: 'Launch Resource' }
+    { id: 4, title: 'Resource Access', description: 'Launch Resource' },
   ];
 
   const userTypes: UserType[] = [
@@ -48,7 +77,7 @@ const ToolsAccess: React.FC<ToolsAccessProps> = ({ isOpen, onClose, toolName, to
       description: 'Full access to all tools and data export capabilities',
       features: ['Full data access', 'Export capabilities', 'API access', 'Collaboration tools'],
       icon: FileText,
-      color: 'blue'
+      color: 'blue',
     },
     {
       id: 'student',
@@ -56,7 +85,7 @@ const ToolsAccess: React.FC<ToolsAccessProps> = ({ isOpen, onClose, toolName, to
       description: 'Educational access with guided tutorials',
       features: ['Educational content', 'Guided tutorials', 'Limited data access', 'Learning resources'],
       icon: User,
-      color: 'green'
+      color: 'green',
     },
     {
       id: 'public',
@@ -64,15 +93,13 @@ const ToolsAccess: React.FC<ToolsAccessProps> = ({ isOpen, onClose, toolName, to
       description: 'Basic access to public datasets and visualizations',
       features: ['Public datasets', 'Basic visualizations', 'Educational content', 'News updates'],
       icon: Eye,
-      color: 'purple'
-    }
+      color: 'purple',
+    },
   ];
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate login process
     setTimeout(() => {
       setIsLoggedIn(true);
       setCurrentStep(2);
@@ -83,8 +110,6 @@ const ToolsAccess: React.FC<ToolsAccessProps> = ({ isOpen, onClose, toolName, to
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate registration process
     setTimeout(() => {
       setIsLoggedIn(true);
       setCurrentStep(2);
@@ -92,8 +117,8 @@ const ToolsAccess: React.FC<ToolsAccessProps> = ({ isOpen, onClose, toolName, to
     }, 1500);
   };
 
-  const handleUserTypeSelection = (type: string) => {
-    setUserType(type as any);
+  const handleUserTypeSelection = (type: UserTypeId) => {
+    setUserType(type);
     setCurrentStep(3);
   };
 
@@ -105,10 +130,8 @@ const ToolsAccess: React.FC<ToolsAccessProps> = ({ isOpen, onClose, toolName, to
 
   const handleToolLaunch = () => {
     setIsLoading(true);
-    // Simulate tool launch with realistic delay
     setTimeout(() => {
       setIsLoading(false);
-      // Open tool in new window/tab
       const toolUrl = `https://tools.kheobs.org/${toolType}/${toolName.toLowerCase().replace(/\s+/g, '-')}`;
       window.open(toolUrl, '_blank', 'noopener,noreferrer');
       onClose();
@@ -116,36 +139,18 @@ const ToolsAccess: React.FC<ToolsAccessProps> = ({ isOpen, onClose, toolName, to
   };
 
   const handleDownloadUserManual = () => {
-    // Create a blob with sample PDF content
     const pdfContent = `%PDF-1.4
 1 0 obj
-<<
-/Type /Catalog
-/Pages 2 0 R
->>
+<< /Type /Catalog /Pages 2 0 R >>
 endobj
-
 2 0 obj
-<<
-/Type /Pages
-/Kids [3 0 R]
-/Count 1
->>
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
 endobj
-
 3 0 obj
-<<
-/Type /Page
-/Parent 2 0 R
-/MediaBox [0 0 612 792]
-/Contents 4 0 R
->>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R >>
 endobj
-
 4 0 obj
-<<
-/Length 44
->>
+<< /Length 44 >>
 stream
 BT
 /F1 12 Tf
@@ -154,7 +159,6 @@ BT
 ET
 endstream
 endobj
-
 xref
 0 5
 0000000000 65535 f 
@@ -163,10 +167,7 @@ xref
 0000000115 00000 n 
 0000000206 00000 n 
 trailer
-<<
-/Size 5
-/Root 1 0 R
->>
+<< /Size 5 /Root 1 0 R >>
 startxref
 299
 %%EOF`;
@@ -185,9 +186,8 @@ startxref
   const handleVideoTutorial = (type: 'getting-started' | 'advanced') => {
     const videoUrls = {
       'getting-started': `https://tutorials.kheobs.org/${toolType}/getting-started`,
-      'advanced': `https://tutorials.kheobs.org/${toolType}/advanced-features`
+      'advanced': `https://tutorials.kheobs.org/${toolType}/advanced-features`,
     };
-    
     window.open(videoUrls[type], '_blank', 'noopener,noreferrer');
   };
 
@@ -210,7 +210,7 @@ System Information:
 Thank you for your assistance.
 
 Best regards`);
-    
+
     const mailtoUrl = `mailto:${toolType}-support@kheobs.org?subject=${subject}&body=${body}`;
     window.location.href = mailtoUrl;
   };

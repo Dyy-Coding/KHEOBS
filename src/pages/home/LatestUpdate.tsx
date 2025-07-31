@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { newsArticles } from "./DataNews";
+import { newsArticles } from "../news/DataNews";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 50 },

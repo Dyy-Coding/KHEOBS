@@ -1,98 +1,39 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Filter, Calendar, MapPin, ExternalLink, X } from 'lucide-react';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Search,
+  Filter,
+  Calendar,
+  MapPin,
+  ExternalLink,
+  X,
+} from "lucide-react";
+import { projects, Project } from "./data";
 
-const Research = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState('all');
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+const Research: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const projects = [
-    {
-      id: 1,
-      title: "Climate Change Adaptation in Rural Cambodia",
-      description: "Developing sustainable solutions for agricultural communities facing climate challenges through innovative farming techniques and water management systems.",
-      image: "https://images.pexels.com/photos/2886938/pexels-photo-2886938.jpeg?auto=compress&cs=tinysrgb&w=600",
-      status: "Ongoing",
-      year: "2023-2025",
-      location: "Kampong Thom Province",
-      team: ["Dr. Sophea Chan", "Dr. Ratha Pich", "Ms. Srey Leak"],
-      funding: "World Bank",
-      tags: ["Climate", "Agriculture", "Community"]
-    },
-    {
-      id: 2,
-      title: "Water Resource Management in Mekong Basin",
-      description: "Monitoring and preserving water quality in the Mekong River basin through advanced sensor networks and predictive modeling.",
-      image: "https://images.pexels.com/photos/681467/pexels-photo-681467.jpeg?auto=compress&cs=tinysrgb&w=600",
-      status: "Published",
-      year: "2021-2023",
-      location: "Mekong River Basin",
-      team: ["Dr. Ratha Pich", "Dr. Virak Nhem"],
-      funding: "ASEAN Climate Fund",
-      tags: ["Water", "Monitoring", "Technology"]
-    },
-    {
-      id: 3,
-      title: "Biodiversity Conservation in National Parks",
-      description: "Protecting endangered species and ecosystems in Cambodia's national parks through innovative conservation strategies.",
-      image: "https://images.pexels.com/photos/1534609/pexels-photo-1534609.jpeg?auto=compress&cs=tinysrgb&w=600",
-      status: "Ongoing",
-      year: "2022-2024",
-      location: "Virachey National Park",
-      team: ["Dr. Sophea Chan", "Ms. Srey Leak"],
-      funding: "WWF Cambodia",
-      tags: ["Biodiversity", "Conservation", "Wildlife"]
-    },
-    {
-      id: 4,
-      title: "Urban Heat Island Mitigation",
-      description: "Studying urban heat effects in Phnom Penh and developing green infrastructure solutions for temperature regulation.",
-      image: "https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=600",
-      status: "Completed",
-      year: "2020-2022",
-      location: "Phnom Penh",
-      team: ["Dr. Virak Nhem", "Dr. Sophea Chan"],
-      funding: "Ministry of Environment",
-      tags: ["Urban", "Climate", "Infrastructure"]
-    },
-    {
-      id: 5,
-      title: "Renewable Energy Assessment",
-      description: "Evaluating solar and wind energy potential across Cambodia for sustainable energy transition planning.",
-      image: "https://images.pexels.com/photos/433308/pexels-photo-433308.jpeg?auto=compress&cs=tinysrgb&w=600",
-      status: "Ongoing",
-      year: "2023-2025",
-      location: "Nationwide",
-      team: ["Dr. Virak Nhem", "Dr. Ratha Pich"],
-      funding: "ADB Energy Initiative",
-      tags: ["Energy", "Renewable", "Assessment"]
-    },
-    {
-      id: 6,
-      title: "Coastal Erosion Monitoring",
-      description: "Assessing coastal erosion patterns and developing protection strategies for vulnerable coastal communities.",
-      image: "https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&w=600",
-      status: "Published",
-      year: "2019-2021",
-      location: "Koh Kong Province",
-      team: ["Dr. Ratha Pich", "Ms. Srey Leak"],
-      funding: "GEF Small Grants",
-      tags: ["Coastal", "Erosion", "Protection"]
-    }
-  ];
+  const filteredProjects = projects.filter((project) => {
+    const matchesSearch =
+      project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.tags.some((tag) =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase())
+      );
 
-  const filteredProjects = projects.filter(project => {
-    const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesFilter = filterStatus === 'all' || project.status.toLowerCase() === filterStatus.toLowerCase();
-    
+    const matchesFilter =
+      filterStatus === "all" ||
+      project.status.toLowerCase() === filterStatus.toLowerCase();
+
     return matchesSearch && matchesFilter;
   });
 
-  const Modal = ({ project, onClose }: { project: any, onClose: () => void }) => (
+  const Modal: React.FC<{ project: Project; onClose: () => void }> = ({
+    project,
+    onClose,
+  }) => (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
@@ -107,22 +48,26 @@ const Research = () => {
           >
             <X className="w-5 h-5" />
           </button>
-          
+
           <div className="h-64 bg-gray-200 overflow-hidden">
-            <img 
-              src={project.image} 
+            <img
+              src={project.image}
               alt={project.title}
               className="w-full h-full object-cover"
             />
           </div>
-          
+
           <div className="p-8">
             <div className="flex items-center justify-between mb-4">
-              <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                project.status === 'Ongoing' ? 'bg-green-100 text-green-800' :
-                project.status === 'Published' ? 'bg-blue-100 text-blue-800' :
-                'bg-gray-100 text-gray-800'
-              }`}>
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                  project.status === "Ongoing"
+                    ? "bg-green-100 text-green-800"
+                    : project.status === "Published"
+                    ? "bg-blue-100 text-blue-800"
+                    : "bg-gray-100 text-gray-800"
+                }`}
+              >
                 {project.status}
               </span>
               <div className="flex items-center text-gray-600">
@@ -130,9 +75,11 @@ const Research = () => {
                 <span className="text-sm">{project.year}</span>
               </div>
             </div>
-            
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">{project.title}</h2>
-            
+
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              {project.title}
+            </h2>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
                 <h3 className="font-semibold text-gray-900 mb-2">Location</h3>
@@ -141,40 +88,46 @@ const Research = () => {
                   <span>{project.location}</span>
                 </div>
               </div>
-              
+
               <div>
                 <h3 className="font-semibold text-gray-900 mb-2">Funding</h3>
                 <p className="text-gray-600">{project.funding}</p>
               </div>
             </div>
-            
+
             <div className="mb-6">
               <h3 className="font-semibold text-gray-900 mb-2">Team Members</h3>
               <div className="flex flex-wrap gap-2">
-                {project.team.map((member: string, index: number) => (
-                  <span key={index} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                {project.team.map((member, index) => (
+                  <span
+                    key={index}
+                    className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
+                  >
                     {member}
                   </span>
                 ))}
               </div>
             </div>
-            
+
             <div className="mb-6">
               <h3 className="font-semibold text-gray-900 mb-2">Description</h3>
               <p className="text-gray-700 leading-relaxed">{project.description}</p>
             </div>
-            
+
             <div className="mb-6">
               <h3 className="font-semibold text-gray-900 mb-2">Tags</h3>
               <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag: string, index: number) => (
-                  <span key={index} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+                {project.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                  >
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
-            
+
             <div className="flex gap-4">
               <button className="flex items-center px-4 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-700 transition-colors">
                 <ExternalLink className="w-4 h-4 mr-2" />
@@ -193,34 +146,35 @@ const Research = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      {/* Hero Section */}
-<section className="relative text-white py-16 overflow-hidden">
-  {/* Background image with blur */}
-  <div
-    className="absolute inset-0 bg-cover bg-center filter  opacity-100"
-    style={{ backgroundImage: "url('https://i.pinimg.com/1200x/ab/6d/61/ab6d619cbf3202c497471366856a4b86.jpg')" }}
-    aria-hidden="true"
-  ></div>
+      <section className="relative text-white py-16 overflow-hidden">
+        {/* Background image with blur */}
+        <div
+          className="absolute inset-0 bg-cover bg-center filter opacity-100"
+          style={{
+            backgroundImage:
+              "url('https://i.pinimg.com/1200x/ab/6d/61/ab6d619cbf3202c497471366856a4b86.jpg')",
+          }}
+          aria-hidden="true"
+        ></div>
 
-  {/* Dark overlay for contrast */}
-  <div className="absolute inset-0 bg-black opacity-40" aria-hidden="true"></div>
+        {/* Dark overlay for contrast */}
+        <div className="absolute inset-0 bg-black opacity-40" aria-hidden="true"></div>
 
-  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="text-center"
-    >
-      <h1 className="text-4xl md:text-5xl font-bold mb-6">Research Projects</h1>
-      <p className="text-xl max-w-3xl mx-auto">
-        Explore our comprehensive research initiatives addressing critical environmental 
-        challenges in Cambodia through innovative solutions and community partnerships.
-      </p>
-    </motion.div>
-  </div>
-</section>
-
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Research Projects</h1>
+            <p className="text-xl max-w-3xl mx-auto">
+              Explore our comprehensive research initiatives addressing critical environmental{" "}
+              challenges in Cambodia through innovative solutions and community partnerships.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Search and Filter */}
       <section className="py-8 bg-white border-b">
@@ -236,7 +190,7 @@ const Research = () => {
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-            
+
             <div className="flex items-center gap-2">
               <Filter className="text-gray-400 w-5 h-5" />
               <select
@@ -268,20 +222,24 @@ const Research = () => {
                 onClick={() => setSelectedProject(project)}
               >
                 <div className="h-48 bg-gray-200 overflow-hidden">
-                  <img 
-                    src={project.image} 
+                  <img
+                    src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                
+
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      project.status === 'Ongoing' ? 'bg-green-100 text-green-800' :
-                      project.status === 'Published' ? 'bg-blue-100 text-blue-800' :
-                      'bg-gray-100 text-gray-800'
-                    }`}>
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        project.status === "Ongoing"
+                          ? "bg-green-100 text-green-800"
+                          : project.status === "Published"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-gray-100 text-gray-800"
+                      }`}
+                    >
                       {project.status}
                     </span>
                     <div className="flex items-center text-gray-500 text-sm">
@@ -289,23 +247,28 @@ const Research = () => {
                       <span>{project.year}</span>
                     </div>
                   </div>
-                  
+
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
                   <p className="text-gray-600 mb-4 line-clamp-3">{project.description}</p>
-                  
+
                   <div className="flex items-center text-gray-500 text-sm mb-4">
                     <MapPin className="w-4 h-4 mr-1" />
                     <span>{project.location}</span>
                   </div>
-                  
+
                   <div className="flex flex-wrap gap-2">
                     {project.tags.slice(0, 3).map((tag, tagIndex) => (
-                      <span key={tagIndex} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
+                      <span
+                        key={tagIndex}
+                        className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs"
+                      >
                         {tag}
                       </span>
                     ))}
                     {project.tags.length > 3 && (
-                      <span className="text-gray-500 text-xs">+{project.tags.length - 3} more</span>
+                      <span className="text-gray-500 text-xs">
+                        +{project.tags.length - 3} more
+                      </span>
                     )}
                   </div>
                 </div>
